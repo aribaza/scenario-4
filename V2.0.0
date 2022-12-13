@@ -1,0 +1,46 @@
+#include <Mouse.h>
+
+void setup() {
+  Mouse.begin();
+  Serial.begin(9600);
+}
+
+void loop() {
+  char pin [2];
+  float sensors [5];
+  for (int i = 0; i < sizeof(sensors); i++) {
+    pin [0] = "A";
+    pin [1] = i;
+    sensors [i]=analogRead(pin);
+  }
+  if (sensors [0] > 920) {
+    Mouse.click(); //click left button
+    while (sensors [0]>920){
+      Serial.println("Waiting");
+    }
+  }
+  if (sensors [1] > 920) {
+    Mouse.move(0,50,0); //move 50 up
+    while (sensors [1]>920){
+      Serial.println("Waiting");
+    }
+  }
+  if (sensors [2] > 920) {
+    Mouse.move(0,-50,0); //move 50 down
+    while (sensors [2]>920){
+      Serial.println("Waiting");
+    }
+  }
+  if (sensors [3] > 920) {
+    Mouse.move(-50,0,0); //move 50 left
+    while (sensors [3]>920){
+      Serial.println("Waiting");
+    }
+  }
+  if (sensors [4] > 920) {
+    Mouse.move(50,0,0); //move 50 right
+    while (sensors [4]>920){
+      Serial.println("Waiting");
+    }
+  }
+}
