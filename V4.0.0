@@ -1,0 +1,39 @@
+#include <Mouse.h>
+void setup() {
+  Mouse.begin();
+  Serial.begin(9600);
+}
+
+int clickCheck(float sensor){
+  if (sensor > 420) {
+    Mouse.click(); //click left button
+    delay(1000);
+  }
+  return 0;
+}
+void loop() {
+  float s1 = analogRead(A0); //click
+  float s2 = analogRead(A1); //move up
+  float s3 = analogRead(A2); //move down
+  float s4 = analogRead(A3); //move left
+  float s5 = analogRead(A4); //move right
+  if (s2 > 700) {
+    Mouse.move(0,-1,0); //move 1 up
+    clickCheck(s1);
+  }
+  else if (s3 > 700) {
+    Mouse.move(0,1,0); //move 1 down
+    clickCheck(s1);
+  }
+  else if (s4 > 430) {
+    Mouse.move(-2,0,0); //move 1 left
+    clickCheck(s1);
+  }
+  else if (s5 > 560) {
+    Mouse.move(2,0,0); //move 1 right
+    clickCheck(s1);
+  }
+  else{
+    clickCheck(s1);
+  }
+}
